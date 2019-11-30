@@ -6,24 +6,28 @@
 
     <div class="container">
 
-    <h2>Editar Orcamento</h3><br>
+        <h2>Editar Orçamento</h3><br>
 
         <form action="{{ route('orcamentos.update', ['orcamento' => $orcamento->id]) }}" method="POST"> 
             @csrf
             @method('PUT') <!-- usar esse método, porque o update não permite usaar o POST-->
             <p>
-                Cliente
+                <strong>Cliente</strong>
                 <select name="cliente_id">
-                    <option value="">Selecione</option>
                         @foreach($clientes as $cliente)
-                            <option value="{{ $cliente->id }}">{{ $cliente->nome }} {{ $cliente->sobrenome }}</option>
+                            <option 
+                                {{ ($orcamento->cliente_id == $cliente->id) ? 'selected':null }}
+                                value="{{ $cliente->id }}">
+                                {{ $cliente->nome }} 
+                                {{ $cliente->sobrenome }}
+                            </option>
                         @endforeach
                 </select>
             </p>
-                Título<br><input type="text" name="titulo" value="{{ old('orcamento', $orcamento->titulo) }}">
+                <strong>Título</strong><br><input type="text" name="titulo" value="{{ old('orcamento', $orcamento->titulo) }}">
             </p>
             <p>
-                Descrição<br><input type="text" name="descricao" value="{{ old('orcamento', $orcamento->descricao) }}">
+                <strong>Descrição</strong><br><input type="text" name="descricao" value="{{ old('orcamento', $orcamento->descricao) }}">
             </p>
             <p>
                 <input type="button" value="Material "><!-- ver forma de cadastrar material clicando em +1, caso hajam vários -->
@@ -32,7 +36,7 @@
                 <input type="button" value="Serviço"><!-- ver forma de cadastrar serviço de gterceiros clicando em +1, caso hajam vários -->
             </p>
             <p>
-                Prazo<br><input type="number" name="prazo" min="1" max="365" value="{{ old('orcamento', $orcamento->prazo) }}">
+                <strong>Prazo</strong><br><input type="number" name="prazo" min="1" max="365" value="{{ old('orcamento', $orcamento->prazo) }}">
                 <select name="tempo" value="{{ old('orcamento', $orcamento->tempo) }}">
                     <option></option>
                     <option value="dia">Dia(s)</option>
@@ -41,12 +45,14 @@
                 </select>
             </p>
             <p>
-                Valor<br><input type="number" name="valor" value="{{ old('orcamento', $orcamento->valor) }}">
+                <strong> Valor</strong><br><input type="number" name="valor" value="{{ old('orcamento', $orcamento->valor) }}">
             </p>
 
-            <p><input type="submit" value="Salvar"></p>
+            <p><input type="submit" value="Salvar" ></p>
 
-            <p> <strong> <a href="{{ url('/index') }}"> Cancelar </a> </strong> </p>
+            <p><input type="submit" value="Salvar e Enviar" ></p>
+
+            <p> <strong> <a href="{{ url('/index') }}"> Página inicial </a> </strong> </p>
 
             <!-- <button type="submit" formaction="{{ url('/index') }}">Cancelar</button> -->
         </form>

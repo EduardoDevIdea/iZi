@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Cliente;
+use Illuminate\Support\Facades\Session;
 
 class ClienteController extends Controller
 {
@@ -54,7 +55,10 @@ class ClienteController extends Controller
         $cliente->endereco = $request->endereco;
         $cliente->save();
 
-        return view('menu.index');
+        Session::flash('success', 'Cliente cadastrado com sucesso!');
+        
+        return redirect('/index');
+        
     }
 
     //LISTAR CLIENTES do usuário logado - função criada para este sistema
@@ -67,7 +71,7 @@ class ClienteController extends Controller
 
         //$clientes = Cliente::join('users', 'users.id', 'clientes.user_id')->where('clientes.user_id', $user_id)->get();
 
-        $clientes = Cliente::where('clientes.user_id', $user_id)->get(); //Tive que adicionar esta linha, porque usando a variável $clientes_user no compact retornou na view o user e não os clientes do user
+        $clientes = Cliente::where('clientes.user_id', $user_id)->paginate(10); //Tive que adicionar esta linha, porque usando a variável $clientes_user no compact retornou na view o user e não os clientes do user
         
         return view('clientes.listar', compact('clientes'));
 
@@ -75,6 +79,27 @@ class ClienteController extends Controller
                                                                          //pega a coleção de dados de Clientes e vai passar para a view em formato de array
     }
 
+    public function filtro(Request $request){
+        //dd($request->all());
+        $user_id = auth()->user()->id;
+        //dd($user_id);
+
+        $search = $request->search;
+        //dd($search);
+
+        $clientes = Cliente::where('user_id', $user_id)
+                            ->where( function($query) use($search){
+                                        $query->where('nome', 'like', $search.'%')
+                                            ->orWhere('sobrenome', 'like', $search.'%')
+                                            ->orWhere('email', 'like', $search.'%')
+                                            ->orWhere('telefone', 'like', $search.'%');
+                            })
+                            ->paginate(10); //usou paginate porque a view tem paginação {{ $clientes->links() }}
+                            //dd($clientes);
+    
+        return view('clientes.listar', compact('clientes'));
+
+    }
 
     /**
      * Display the specified resource.
@@ -125,7 +150,7 @@ class ClienteController extends Controller
      */
     public function destroy($id)
     {
-        $cliente = Cliente::find($id)->delete(); //armazena dentro da variável $cliente o degistro encontrado
+        Cliente::find($id)->delete(); //armazena dentro da variável $cliente o degistro encontrado
                                                  // Utiliza o método find da Classe Cliente com o parâmetro $id e depois utiliza o método delete
 
         return redirect()->route('clientes.index');

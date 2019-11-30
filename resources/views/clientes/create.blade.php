@@ -33,7 +33,7 @@
                 </select>
             </p>
 
-            <p><input type="submit" value="Cadastrar"></p>
+            <p><input type="submit" value="Cadastrar" class="tt"></p>
 
             <p> <strong> <a href="{{ url('/index') }}"> Cancelar </a> </strong> </p>
 

@@ -2,6 +2,13 @@
 
 @section('content')
 <div class="container">
+
+@if(session('inativo'))
+    <script>
+        window.alert("{{ session('inativo') }}");
+    </script>
+@endif
+
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

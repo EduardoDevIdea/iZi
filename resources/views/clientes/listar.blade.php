@@ -8,9 +8,11 @@
         <div class="col-md-12">
         
             <h2>Lista de Clientes</h2>
-            <!-- Filtrar cliente com botão formato lupa-->
-            <form>
-                Filtrar: <input type="text" name="filtro_cli"> <input type="submit" value="Procurar">
+
+            <!-- FILTRO -->
+            <form action="/search_cli" method="POST">
+                @csrf
+                Buscar: <input type="text" name="search" required> <input type="submit" value="Ok">
             </form>
             <br>
 
@@ -43,8 +45,9 @@
                 </tbody>
             <table>
         </div>
+        {{ $clientes->links() }}
     </div>
-
+    
     <p> <strong> <a href="{{ url('/index') }}"> Cancelar </a> </strong> </p>
 
 @endsection
