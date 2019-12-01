@@ -12,7 +12,7 @@
             @csrf
             <p>
                 <strong>Cliente</strong>
-                <select name="cliente_id">
+                <select name="cliente_id" required>
                     <option></option>
                         @foreach($clientes as $cliente)
                             <option value="{{ $cliente->id }}">
@@ -21,20 +21,24 @@
                         @endforeach
                 </select>
             </p>
-                <strong>Título</strong><br><input type="text" name="titulo">
+                <strong>Título</strong><br><input type="text" name="titulo" required>
             </p>
             <p>
-                <strong>Descrição</strong><br><textarea name="descricao"></textarea>
+                <strong>Descrição</strong><br><textarea name="descricao" required></textarea>
             </p>
             <p>
-                <input type="button" value="Material "><!-- ver forma de cadastrar material clicando em +1, caso hajam vários -->
+                <strong>Custo com material</strong><br><input type="number" name="material">
             </p>
             <p>
-                <input type="button" value="Serviço"><!-- ver forma de cadastrar serviço de gterceiros clicando em +1, caso hajam vários -->
+                <strong>Serviço de terceiros</strong><br>
+                <textarea name="descservice"></textarea>  &nbsp;&nbsp;&nbsp;
+
+                <strong>Valor do serviço terceirizado:</strong>
+                <input type="number" name="parceiro">
             </p>
             <p>
-                <strong>Prazo</strong><br><input type="number" name="prazo" min="1" max="365">
-                <select name="tempo">
+                <strong>Prazo</strong><br><input type="number" name="prazo" min="1" max="365" required>
+                <select name="tempo" required>
                     <option></option>
                     <option value="dia">Dia(s)</option>
                     <option value="mes">Mês(s)</option>
@@ -42,7 +46,7 @@
                 </select>
             </p>
             <p>
-                <strong>Valor</strong><br><input type="number" name="valor">
+                <strong>Valor</strong><br><input type="number" name="valor" required>
             </p>
 
             <p><input type="submit" value="Salvar"></p>

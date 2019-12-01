@@ -69,7 +69,11 @@ class OrcamentoController extends Controller
         $orcamento->prazo = ($prazo * $dia);
         $orcamento->titulo = $request->titulo;
         $orcamento->descricao = $request->descricao;
+        $orcamento->material = $request->material;
+        $orcamento->descservice = $request->descrivice;
+        $orcamento->parceiro = $request->parceiro;
         $orcamento->valor = $request->valor;
+        $orcamento->total = ($request->valor + $request->material + $request->parceiro);
 
         $orcamento->save();
 
@@ -89,16 +93,16 @@ class OrcamentoController extends Controller
 
         foreach ($orcamento as $orc){
             
-            if( ($orc->servico != "concluido") or ($orc->servico != "cancelado") and ($orc->inicio != NULL) ) {
-
-                $entrega = strtotime($orc->inicio. "+". $orc->prazo. "days");
-
-                if($hoje > $entrega){
-
+            if( ( ($orc->servico != "concluido") or ($orc->servico != "cancelado") ) and (!empty($orc->inicio)) ) {
+        
+                $entrega = date('Y-m-d', strtotime($orc->inicio. "+". $orc->prazo. "days"));
+        
+                if(date('Y-m-d') > $entrega){
+        
                     Orcamento::find($orc->id)->update(['servico' => "atrasado"]);
-
+        
                 }
-            }
+            } 
         }
 
         $orcamentos = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome')
@@ -146,11 +150,6 @@ class OrcamentoController extends Controller
         ->join('clientes', 'clientes.id', 'orcamentos.cliente_id')
         ->where('orcamentos.id', $id)->first();
 
-        /*
-        $orcamento = Orcamento::join('clientes', 'clientes.id', 'orcamentos.cliente_id')
-        ->where('orcamentos.id',$id)->first();
-        */
-        //dd($orcamento);
         return view('orcamentos.show', compact('orcamento'));
     }
 
@@ -186,7 +185,7 @@ class OrcamentoController extends Controller
                                        'valor' => $request->valor
         ]);
 
-        return view('menu.index');
+        return redirect()->back()->with('update', 'Orcamento atualizado com sucesso!');
     }
 
     public function status(Request $request){
@@ -198,13 +197,9 @@ class OrcamentoController extends Controller
 
     public function inicio(Request $request){
 
-        //dd($request->inicio);
-
         Orcamento::find($request->id)->update(['inicio' => $request->inicio]);
 
         $orcamento = Orcamento::find($request->id)->first();
-
-        //dd($orcamento->inicio);
 
         return redirect()->back()->with('update', 'Data de início do serviço foi definida');
     }
@@ -234,14 +229,17 @@ class OrcamentoController extends Controller
     public function enviar($id){
 
         $user_id = auth()->user()->id;
-        $user = User::where('user.id', $user_id)->first();
+
+        $user = User::where('id', $user_id)->first();
 
         $orcamento = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome',
                                        'clientes.email as c_email')
                                        ->join('clientes', 'clientes.id', 'orcamentos.cliente_id')
-                                       ->where('orcamento.id', $id)->first();
+                                       ->where('orcamentos.id', $id)->first()->toArray();
 
-        Mail::send('orcamentos.enviar', $orcamento, function($message){
+                                      // dd($orcamento);
+
+        Mail::send('orcamentos.enviar', $orcamento, function($message) use ($user){
 
             $message->from('izi.websoftware', $user->nome);
             $message->subject('Orçamento');

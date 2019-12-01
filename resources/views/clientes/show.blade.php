@@ -4,6 +4,12 @@
 
 @section('content')
 
+    @if(session('update'))
+        <script>
+            window.alert( "{{ session('update') }}" );
+        </script>
+    @endif
+
     <div class="container">
 
     <h3> Cliente - {{ $cliente->nome }} {{ $cliente->sobrenome }}</h3>
@@ -20,11 +26,14 @@
            
             <p><strong>Tipo</strong> - {{ $cliente->tipo}}</p>
 
-            <p> <strong> <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"> Editar </a> </strong> </p>
+            <br>
 
-            <p><strong><a href="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"> Excluir</a></strong></p>
-
-            <p> <strong> <a href="{{ url('/index') }}"> Cancelar </a> </strong> </p>
+            <p>
+                <strong> <a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"> Editar </a> </strong> &nbsp;&nbsp;&nbsp;
+                <strong><a href="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"> Excluir</a></strong>  &nbsp;&nbsp;&nbsp;
+                <strong> <a href="{{ url('/index') }}"> Home </a> </strong>  &nbsp;&nbsp;&nbsp;
+                <strong><a href="/list_cli">Voltar</a></strong>
+            </p>
     </div>
 
 @endsection

@@ -12,7 +12,7 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth/login');
 });
 
 //------- AUTH
@@ -56,10 +56,10 @@ Route::post('/inicio', 'OrcamentoController@inicio');
 Route::post('/servico', 'OrcamentoController@servico');
 
 //download orçamento
-Route::get('download/{$id}', 'OrcamentoController@download');
+Route::get('orcamento/download/{id}', 'OrcamentoController@download');
 
 //enviar orçamento
-Route::get('/enviar/{$id}', 'OrcamentoController@enviar');
+Route::get('orcamento/enviar/{id}', 'OrcamentoController@enviar');
 
 //deletar orçamento
 Route::get('/orcamentos/{orcamento}/delete', 'OrcamentoController@destroy')->name('orcamentos.destroy');

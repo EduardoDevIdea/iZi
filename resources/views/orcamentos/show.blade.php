@@ -90,10 +90,10 @@
                 <table border="1">
                     <tr>
                         <td>
-                            <a href="enviar/{{ $orcamento->id }}"><strong>Enviar</strong></a>
+                            <a href="/orcamento/enviar/{{ $orcamento->id }}"><strong>Enviar</strong></a>
                         </td>
                         <td>
-                            <strong><a href="download/{{ $orcamento->id }}">Download</a></strong>
+                            <strong><a href="/orcamento/download/{{ $orcamento->id }}">Download</a></strong>
                         </td>
                         <td>
                             <strong> <a href="{{ route('orcamentos.edit', ['orcamento' => $orcamento->id]) }}">Editar</a> </strong>
@@ -106,7 +106,10 @@
                 <!-- ################################################################################## -->
 
                 <br><br>
-                <p><strong> <a href="{{ url('/index') }}"> HOME </a> </strong></p>
+                <p>
+                    <strong> <a href="{{ url('/index') }}"> Home </a> </strong>&nbsp;&nbsp;&nbsp;
+                    <strong> <a href="/list_orc"> Voltar </a> </strong>
+                </p>
     </div>
 
 @endsection

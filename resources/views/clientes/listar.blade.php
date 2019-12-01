@@ -5,6 +5,7 @@
 @section('content')
 
     <div class="container">
+
         <div class="col-md-12">
         
             <h2>Lista de Clientes</h2>
@@ -48,6 +49,6 @@
         {{ $clientes->links() }}
     </div>
     
-    <p> <strong> <a href="{{ url('/index') }}"> Cancelar </a> </strong> </p>
+    <p> <strong> <a href="{{ url('/index') }}"> Home </a> </strong> </p>
 
 @endsection

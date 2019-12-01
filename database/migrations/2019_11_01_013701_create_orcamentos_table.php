@@ -27,7 +27,7 @@ class CreateOrcamentosTable extends Migration
             $table->tinyInteger('prazo'); //Campo "Prazo" - armazena o tempo em dias que o serviço será realizado
             $table->enum('status', ['enviado', 'aprovado', 'reprovado', 'concluido', 'atrasado', 'cancelado'])->nullable();//após salvar o orçamento, ter a opção selecionar o status e salvar no BD
             $table->float('valor');
-            $table->float('total')->nullable();//Campo total = (valor + serviço) - tirar o nullable quando descobrir como pegar o valor da tabela serviço
+            $table->float('total')->nullable();//Campo total = (valor + material + serviço) - tirar o nullable quando descobrir como pegar o valor da tabela serviço
             $table->timestamps();
         });
     }

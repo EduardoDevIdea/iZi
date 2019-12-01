@@ -138,7 +138,9 @@ class ClienteController extends Controller
     {
         Cliente::find($id)->update($request->all()); // Encontra o registro através do método find do Modelo cliente usando o $id como parâmetro
                                                                 // Método update atualiza o registro no bd e tem como parâmetro o $reequest
-        return redirect()->route('clientes.index'); //não retornei diretamente para a view menu, porque deu erro, direcionei para uma rota que dreciona para o menu
+        
+        return redirect()->back()->with('update', 'Cadastro atualizado com sucesso!');
+                                                                 
     }
     
 

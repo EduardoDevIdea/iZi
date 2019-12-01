@@ -6,6 +6,12 @@
 
     <div class="container">
 
+    @if(session('update'))
+        <script>
+            window.alert( "{{ session('update') }}" );
+        </script>
+    @endif
+
     <h2>Cadastro de Cliente</h2>
 
         <form action="{{ route('clientes.update', ['cliente' => $cliente->id]) }}" method="POST"> 
@@ -39,9 +45,11 @@
 
         </form>
 
-        <p><strong><a href="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"> Excluir</a></strong></p>
-
-        <p><strong><a href="{{ url('/index') }}"> Cancelar</a></strong></p>
+        <p>
+            <strong><a href="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"> Excluir</a></strong>  &nbsp;&nbsp;&nbsp;
+            <strong> <a href="{{ url('/index') }}"> Home </a> </strong>  &nbsp;&nbsp;&nbsp;
+            <strong><a href="/list_cli">Voltar</a></strong>
+        </p>
 
     </div>
 
