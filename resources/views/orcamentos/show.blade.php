@@ -20,7 +20,7 @@
 
                 <p><strong>Prazo (dias)</strong> - {{ $orcamento->prazo }}</p>
                 
-                <p><strong>Total</strong> - Mão de obra + Serviço</p>
+                <p><strong>Total</strong> - R$ {{ $orcamento->total }},00</p>
                 <!-- ################################################################################## -->
 
                 <!-- STATUS -->

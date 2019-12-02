@@ -33,14 +33,14 @@
                 <strong>Título</strong><br><input type="text" name="titulo" value="{{ old('orcamento', $orcamento->titulo) }}">
             </p>
             <p>
-                <strong>Descrição</strong><br><textarea name="descricao" value="{{ old('orcamento', $orcamento->descricao) }}"></textarea>
+                <strong>Descrição</strong><br><textarea name="descricao" >{{ old('orcamento', $orcamento->descricao) }}</textarea>
             </p>
             <p>
                 <strong>Custo com material</strong><br><input type="number" name="material" value="{{ old('orcamento', $orcamento->material) }}">
             </p>
             <p>
                 <strong>Serviço de terceiros</strong><br>
-                <textarea name="descservice"></textarea>  &nbsp;&nbsp;&nbsp;
+                <textarea name="descservice">{{ old('orcamento', $orcamento->descservice) }}</textarea>  &nbsp;&nbsp;&nbsp;
 
                 <strong>Valor do serviço terceirizado:</strong>
                 <input type="number" name="parceiro" value="{{ old('orcamento', $orcamento->parceiro) }}">
@@ -55,7 +55,7 @@
                 </select>
             </p>
             <p>
-                <strong> Valor</strong><br><input type="number" name="valor" value="{{ old('orcamento', $orcamento->valor) }}">
+                <strong> Valor (sua mão de obra)</strong><br><input type="number" name="valor" value="{{ old('orcamento', $orcamento->valor) }}">
             </p>
 
             <p><input type="submit" value="Salvar" ></p>

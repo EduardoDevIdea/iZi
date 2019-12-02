@@ -182,7 +182,11 @@ class OrcamentoController extends Controller
                                        'cliente_id' => $request->cliente_id,
                                        'descricao' => $request->descricao,
                                        'prazo' => $request->prazo,
-                                       'valor' => $request->valor
+                                       'valor' => $request->valor,
+                                       'material' => $request->material,
+                                       'descservice' => $request->descservice,
+                                       'parceiro' => $request->parceiro,
+                                       'total' => ($request->material + $request->parceiro)
         ]);
 
         return redirect()->back()->with('update', 'Orcamento atualizado com sucesso!');
@@ -214,7 +218,7 @@ class OrcamentoController extends Controller
 
     public function download($id){
 
-        $orcamento = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome')
+        $orcamento = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome', 'clientes.sobrenome as c_sobrenome')
         ->join('clientes', 'clientes.id', 'orcamentos.cliente_id')
         ->where('orcamentos.id', $id)->first();
 
