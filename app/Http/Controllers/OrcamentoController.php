@@ -70,7 +70,7 @@ class OrcamentoController extends Controller
         $orcamento->titulo = $request->titulo;
         $orcamento->descricao = $request->descricao;
         $orcamento->material = $request->material;
-        $orcamento->descservice = $request->descrivice;
+        $orcamento->descservice = $request->descservice;
         $orcamento->parceiro = $request->parceiro;
         $orcamento->valor = $request->valor;
         $orcamento->total = ($request->valor + $request->material + $request->parceiro);
@@ -218,9 +218,12 @@ class OrcamentoController extends Controller
 
     public function download($id){
 
-        $orcamento = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome', 'clientes.sobrenome as c_sobrenome')
-        ->join('clientes', 'clientes.id', 'orcamentos.cliente_id')
-        ->where('orcamentos.id', $id)->first();
+        $orcamento = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome', 'clientes.sobrenome as c_sobrenome',
+                                       'clientes.email as c_email', 'users.nome as u_nome', 'users.sobrenome as u_sobrenome',
+                                       'users.email as u_email', 'users.telefone as u_telefone')
+                                       ->join('clientes', 'clientes.id', 'orcamentos.cliente_id')
+                                       ->join('users', 'users.id', 'orcamentos.user_id')
+                                       ->where('orcamentos.id', $id)->first();
 
         $pdf = PDF::loadView('orcamentos.download', compact('orcamento'));
 
@@ -236,20 +239,24 @@ class OrcamentoController extends Controller
 
         $user = User::where('id', $user_id)->first();
 
-        $orcamento = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome',
-                                       'clientes.email as c_email')
+        $orcamento = Orcamento::select('orcamentos.*', 'clientes.nome as c_nome', 'clientes.sobrenome as c_sobrenome',
+                                       'clientes.email as c_email', 'users.nome as u_nome', 'users.sobrenome as u_sobrenome',
+                                       'users.email as u_email', 'users.telefone as u_telefone')
                                        ->join('clientes', 'clientes.id', 'orcamentos.cliente_id')
+                                       ->join('users', 'users.id', 'orcamentos.user_id')
                                        ->where('orcamentos.id', $id)->first()->toArray();
 
-                                      // dd($orcamento);
+        $emailenviar = $orcamento['c_email'];
 
-        Mail::send('orcamentos.enviar', $orcamento, function($message) use ($user){
+        Mail::send('orcamentos.enviar', $orcamento, function($message) use ($user, $emailenviar){
 
-            $message->from('izi.websoftware', $user->nome);
+            $message->from('izi.websystem@gmail.com', $user->nome.' '. $user->sobrenome);
             $message->subject('Orçamento');
-            $message->to($orcamento->c_email);
+            $message->to($emailenviar);
 
         });
+
+        return redirect()->back()->with('enviado', 'Orçamento enviado para o email de '. $orcamento['c_nome']);
 
     }
 

@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('auth/login');
-});
+Route::get('/', function(){
+    return view('menu.index');
+})->middleware('auth');
 
 //------- AUTH
 Auth::routes();
@@ -96,5 +96,10 @@ Route::get('/cad_orc', function(){
 Route::get('/agendar', function(){
     return view('agendas.create');
 })->middleware('auth');
+
+Route::get('/login ', function(){
+    return view('aauth.login');
+});
+
 
 //---------------------------------------------------------------------------------------

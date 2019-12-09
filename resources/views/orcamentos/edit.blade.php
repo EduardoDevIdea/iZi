@@ -39,7 +39,7 @@
                 <strong>Custo com material</strong><br><input type="number" name="material" value="{{ old('orcamento', $orcamento->material) }}">
             </p>
             <p>
-                <strong>Serviço de terceiros</strong><br>
+                <strong>Serviço terceirizado</strong><br>
                 <textarea name="descservice">{{ old('orcamento', $orcamento->descservice) }}</textarea>  &nbsp;&nbsp;&nbsp;
 
                 <strong>Valor do serviço terceirizado:</strong>

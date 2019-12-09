@@ -11,16 +11,61 @@
             window.alert( "{{ session('update') }}" );
         </script>
     @endif
+
+    @if(session('enviado'))
+        <script>
+            window.alert( "{{ session('enviado') }}" );
+        </script>
+    @endif
     
         <h3>Orçamento </h3> <br>
                 <!-- INFORMAÇÕES DO ORCAMENTO-->
-                <p><strong>Cliente</strong> - {{ $orcamento->c_nome }} {{ $orcamento->c_sobrenome }}</p>
 
-                <p><strong>Descrição de serviço</strong> - {{ $orcamento->titulo }} - {{ $orcamento->descricao }}</p>
+            <table border="1">
+                <tr>
+                    <td>
+                        <strong>Cliente</strong> - {{ $orcamento->c_nome }} {{ $orcamento->c_sobrenome }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Descrição de serviço</strong> - {{ $orcamento->titulo }}: {{ $orcamento->descricao }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Material</strong> - R$ {{ $orcamento->material }},00
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Mão de obra</strong> - R$ {{ $orcamento->valor }},00
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Serviço terceirizado</strong> - {{ $orcamento->descservice }}
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Valor serviço terceirizado</strong> - R$ {{ $orcamento->parceiro }},00 
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Prazo</strong> - {{ $orcamento->prazo }} dias
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <strong>Total</strong> - R$ {{ $orcamento->total }},00
+                    </td>
+                </tr>
+            </table>
 
-                <p><strong>Prazo (dias)</strong> - {{ $orcamento->prazo }}</p>
-                
-                <p><strong>Total</strong> - R$ {{ $orcamento->total }},00</p>
+            <br>
+
                 <!-- ################################################################################## -->
 
                 <!-- STATUS -->
@@ -84,7 +129,6 @@
                 @endif
                 <!-- ################################################################################## -->
 
-                <br>
                 
                 <!-- OPÇÕES Enviar, Download, Editar, Excluir -->
                 <table border="1">
