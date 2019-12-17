@@ -34,14 +34,24 @@
                                 <td>{{ $orcamento->titulo }}</td>
                                 <td>{{ $orcamento->c_nome }}</td>
                                 <td>{{ $orcamento->prazo }}</td>
-                                <td>{{ $orcamento->total }}</td> <!-- Valor mão de obra + Material + Serviço terceiro-->
-                                <!-- passar no parâmetro do helper route um array indicando o id do registro que quer mostrar -->
-                                <td>{{ $orcamento->status }}</td><!--Status default Não enviado, caso o user não modifique após salvar o orçamento-->
-                                <td>{{ $orcamento->servico }}</td>
+                                <td>{{ $orcamento->total }}</td>
+                                @if( $orcamento->status == "aprovado" )
+                                    <td><strong>{{ $orcamento->status }}</strong></td><!--Status default Não enviado, caso o user não modifique após salvar o orçamento-->
+                                @elseif( $orcamento->status == "enviado" )
+                                    <td class="text-success"><strong>{{ $orcamento->status }}</strong></td>
+                                @else
+                                    <td>{{ $orcamento->status }}</td>
+                                @endif
+
+                                @if( $orcamento->servico == "atrasado" )
+                                    <td class="text-danger">{{ $orcamento->servico }}</td>
+                                @else
+                                    <td>{{ $orcamento->servico }}</td>
+                                @endif
                                 <td>
-                                    <strong><a href="{{ route('orcamentos.show', ['orcamento' => $orcamento->id]) }}"> Detalhar -</a></strong>
+                                    <strong><a class="btn btn-primary btn-sm" href="{{ route('orcamentos.show', ['orcamento' => $orcamento->id]) }}"> Detalhar</a></strong>
                                     <!-- Para deletar é preciso fazer através de um form e passar um parâmetro chamado delete para identificar que está deletando para não dar erro ou passar um parâmetro chamado except na rota orcamento-->
-                                    <strong><a href="{{ route('orcamentos.destroy', ['orcamento' => $orcamento->id]) }}"> Excluir</a></strong> <!-- Criar Alerta antes de excluir -->
+                                    <strong><a class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir?')" href="{{ route('orcamentos.destroy', ['orcamento' => $orcamento->id]) }}"> Excluir</a></strong> <!-- Criar Alerta antes de excluir -->
                                 </td>
                             </tr>
                     @endforeach

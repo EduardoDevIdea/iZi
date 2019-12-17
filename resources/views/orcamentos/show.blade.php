@@ -131,19 +131,19 @@
 
                 
                 <!-- OPÇÕES Enviar, Download, Editar, Excluir -->
-                <table border="1">
+                <table>
                     <tr>
                         <td>
-                            <a href="/orcamento/enviar/{{ $orcamento->id }}"><strong>Enviar</strong></a>
+                            <a class="btn btn-success btn-sm" href="/orcamento/enviar/{{ $orcamento->id }}"><strong>Enviar</strong></a>
                         </td>
                         <td>
-                            <strong><a href="/orcamento/download/{{ $orcamento->id }}">Download</a></strong>
+                            <strong><a class="btn btn-secondary btn-sm" href="/orcamento/download/{{ $orcamento->id }}">Download</a></strong>
                         </td>
                         <td>
-                            <strong> <a href="{{ route('orcamentos.edit', ['orcamento' => $orcamento->id]) }}">Editar</a> </strong>
+                            <strong> <a class="btn btn-warning btn-sm" href="{{ route('orcamentos.edit', ['orcamento' => $orcamento->id]) }}">Editar</a> </strong>
                         </td>
                         <td>
-                            <strong><a href="{{ route('orcamentos.destroy', ['orcamento' => $orcamento->id]) }}">Excluir</a></strong> <br>
+                            <strong><a class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir?')" href="{{ route('orcamentos.destroy', ['orcamento' => $orcamento->id]) }}">Excluir</a></strong> <br>
                         </td>
                     </tr>
                 </table>
