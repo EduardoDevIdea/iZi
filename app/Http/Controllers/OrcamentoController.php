@@ -73,13 +73,16 @@ class OrcamentoController extends Controller
         $orcamento->descservice = $request->descservice;
         $orcamento->parceiro = $request->parceiro;
         $orcamento->valor = $request->valor;
+        $orcamento->validade = $request->validade;
         $orcamento->total = ($request->valor + $request->material + $request->parceiro);
 
         $orcamento->save();
 
         Session::flash('success', 'Orçamento cadastrado com sucesso!');
 
-        return view('menu.index');
+        return redirect()->action('OrcamentoController@show', ['id' => $orcamento->id]);
+
+        //return view('menu.index');
     }
 
     //-------LISTA TODOS ORCAMENTOS

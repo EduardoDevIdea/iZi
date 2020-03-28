@@ -6,6 +6,12 @@
 
     <div class="container">
 
+    @if(session('success'))
+        <script>
+            wiindow.alert("{{ session('success') }}");
+        </script>
+    @endif
+
     @if(session('update'))
         <script>
             window.alert( "{{ session('update') }}" );

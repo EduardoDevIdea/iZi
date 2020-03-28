@@ -12,8 +12,8 @@
 */
 
 Route::get('/', function(){
-    return view('menu.index');
-})->middleware('auth');
+    return view('home');
+});
 
 //------- AUTH
 Auth::routes();
@@ -30,6 +30,9 @@ Route::get('/list_cli', 'ClienteController@listar');
 //Filtrar Clientes
 Route::post('/search_cli', 'ClienteController@filtro');
 
+//Mensagem para numero do cliente
+Route::post('/wpp', 'ClienteController@wpp');
+
 //Excluir Cliente
 Route::get('/clientes/{cliente}/delete', 'ClienteController@destroy')->name('clientes.destroy');
 
@@ -39,6 +42,9 @@ Route::get('/clientes/{cliente}/delete', 'ClienteController@destroy')->name('cli
 
 //RESOURCE - Orçamento
 Route::resource('/orcamentos', 'OrcamentoController', ['except' => ['destroy']]);
+
+//Salvar + Enviar
+Route::post('/orc_salvar_enviar', 'OrcamentoController@salvarEnviar');
 
 //listar orçamentos
 Route::get('/list_orc', 'OrcamentoController@listar');
@@ -98,7 +104,7 @@ Route::get('/agendar', function(){
 })->middleware('auth');
 
 Route::get('/login ', function(){
-    return view('aauth.login');
+    return view('auth.login');
 });
 
 

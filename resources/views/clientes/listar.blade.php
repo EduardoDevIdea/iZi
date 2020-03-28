@@ -10,11 +10,23 @@
         
             <h2>Lista de Clientes</h2>
 
-            <!-- FILTRO -->
-            <form action="/search_cli" method="POST">
-                @csrf
-                Buscar: <input type="text" name="search" required> <input type="submit" value="Ok">
-            </form>
+            <ul class="nav justify-content-end">
+                <li class="nav-item">
+                    <!-- FILTRO - buscar registro de cliente digitando no campo -->
+                    <form action="/search_cli" method="POST">
+                        @csrf
+                        Buscar: <input type="text" name="search" required> <input type="submit" value="Ok">
+                    </form>
+                </li>
+                <li class="nav-item">
+                <form action="/wpp" method="POST">
+                        @csrf
+                        WhatsApp: <input type="text" name="wpp" required> <input type="submit" value="Ok">
+                    </form>
+                </li>
+            </ul>
+
+            
             <br>
 
             <table class="table">

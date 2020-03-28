@@ -8,7 +8,7 @@
 
     <h2>Novo Orçamento</h2> <br>
 
-        <form action="{{ route('orcamentos.store') }}" method="POST"> 
+        <form id="enviar" action="{{ route('orcamentos.store') }}" method="POST" > 
             @csrf
             <p>
                 <strong>Cliente</strong>
@@ -46,12 +46,13 @@
                 </select>
             </p>
             <p>
-                <strong>Valor</strong><br><input type="number" name="valor" required>
+                <strong>Valor do seu serviço</strong><br><input type="number" name="valor" required>
+            </p>
+            <p>
+                <strong>Validade do orçamento</strong><br><input type="number" name="validade" required>
             </p>
 
             <p><input type="submit" value="Salvar"></p>
-
-            <p><input type="submit" value="Salvar e Enviar" ></p>
 
             <br> 
             

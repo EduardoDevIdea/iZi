@@ -8,7 +8,7 @@ class Orcamento extends Model
 {
     protected $fillable = [
         'user_id','cliente_id', 'titulo', 'descricao', 'prazo', 'valor',
-        'status', 'inicio', 'servico', 'material', 'parceiro', 'descservice'
+        'status', 'inicio', 'servico', 'material', 'parceiro', 'descservice', 'validade'
     ];
 
 }

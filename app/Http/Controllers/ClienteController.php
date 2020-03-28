@@ -101,6 +101,12 @@ class ClienteController extends Controller
 
     }
 
+    public function wpp(Request $request){
+        $numWpp = $request->wpp;
+        //dd($numWpp);
+        return redirect()->away('https://wa.me/'. $numWpp);
+    }
+
     /**
      * Display the specified resource.
      *
