@@ -51,7 +51,7 @@
                                 <strong><a href="{{ route('clientes.show', ['cliente' => $cliente->id]) }}">Detalhar -</a></strong>
                                 <strong><a href="{{ route('clientes.edit', ['cliente' => $cliente->id]) }}"> Editar -</a></strong>
                                 <!-- Para deletar é preciso fazer através de um form e passar um parâmetro chamado delete para identificar que está deletando para não dar erro ou passar um parâmetro chamado except na rota cliente-->
-                                <strong><a href="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}"> Excluir</a></strong>
+                                <strong><a href="{{ route('clientes.destroy', ['cliente' => $cliente->id]) }}">Excluir</a></strong>
                             </td>
                         </tr>
                     @endforeach

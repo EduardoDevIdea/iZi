@@ -1,165 +1,180 @@
-@extends('layouts.app')
-
-@section('title', 'Orçamento de NomeCliente')
+@extends('layouts.base')
 
 @section('content')
 
-    <div class="container">
+<div class="row mt-5 mb-2 mx-5">
 
-    @if(session('success'))
-        <script>
-            wiindow.alert("{{ session('success') }}");
-        </script>
-    @endif
+    <!-- Orçamento -->
+    <div class="col ml-5 border rounded">
+        
+        <div class="row">
+            <div class="col-sm-9">
+                <img src="{{ asset('imagens/brand.png') }}" alt="Sua Logomarca" width="300px" height="150px;" >
+            </div>
+            <div class="col-sm-3">
+                <img src="{{ asset('imagens/izimarcatransp.png') }}" alt="" width="100px;" class="ml-auto">
+                <small>www.iziorcamentos.com.br</small>
+            </div>
+        </div>
 
-    @if(session('update'))
-        <script>
-            window.alert( "{{ session('update') }}" );
-        </script>
-    @endif
+        <div class="row mt-5 justify-content-center" style="font-size: 25px;">
+            <strong>Orçamento</strong>
+        </div>
 
-    @if(session('enviado'))
-        <script>
-            window.alert( "{{ session('enviado') }}" );
-        </script>
-    @endif
-    
-        <h3>Orçamento </h3> <br>
-                <!-- INFORMAÇÕES DO ORCAMENTO-->
+        <div class="container mt-4">
 
-            <table border="1">
-                <tr>
-                    <td>
-                        <strong>Cliente</strong> - {{ $orcamento->c_nome }} {{ $orcamento->c_sobrenome }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Descrição de serviço</strong> - {{ $orcamento->titulo }}: {{ $orcamento->descricao }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Material</strong> - R$ {{ $orcamento->material }},00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Mão de obra</strong> - R$ {{ $orcamento->valor }},00
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Serviço terceirizado</strong> - {{ $orcamento->descservice }}
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Valor serviço terceirizado</strong> - R$ {{ $orcamento->parceiro }},00 
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Prazo</strong> - {{ $orcamento->prazo }} dias
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <strong>Total</strong> - R$ {{ $orcamento->total }},00
-                    </td>
-                </tr>
-            </table>
+            <div class="row">
+                <strong>Solicitante:&nbsp</strong>{{ $orcamento->c_nome }} {{ $orcamento->c_sobrenome}}
+            </div>
 
-            <br>
+            <div class="row mt-3">
+                <strong>Descição:</strong>
+                <div class="container">
+                    {{ $orcamento->descricao }}
+                </div>
+            </div>
 
-                <!-- ################################################################################## -->
+            <div class="row mt-3">
+                <strong>Serviço de terceiros:</strong>
+                <div class="container">
+                    {{ $orcamento->descservice }}
+                </div>
+            </div>
 
-                <!-- STATUS -->
-                @if(($orcamento->status == NULL) or ($orcamento->status == "enviado"))
+            <div class="row mt-3">
+                <strong>Prazo de conclusão:&nbsp</strong>{{ $orcamento->prazo }} dias
+            </div>
+
+            <div class="row mt-3">
+                <table class="border border-dark">
+                    <tr>
+                        <td class=" p-2 border border-dark">
+                            <strong>Total:&nbsp</strong>R$ {{ $orcamento->total }},00
+                        </td>
+                        <td class="p-2 border border-dark">
+                            <strong>Material:&nbsp</strong>R$ {{ $orcamento->material }},00 <br>
+                            <strong>Serviço de terceiros:&nbsp</strong>R$ {{ $orcamento->parceiro }},00 <br>
+                            <strong>Mão de obra:&nbsp</strong>R$ {{ $orcamento->valor }},00
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="row mt-4">
+                <strong>{{ Auth::user()->nome }}</strong>
+            </div>
+
+            <div class="row">
+                <strong>{{ Auth::user()->email }}</strong>
+            </div>
+
+        </div>
+   
+    </div>
+    <!-- Fim Orçamento -->
+
+    <div class="col">
+
+        <!-- Status & Inicio & Serviço-->
+        <div class="container w-50 my-4">
+
+            <div class="row justify-content-center">
+                <!-- Status -->
+                <div class="col-sm mt-4 pb-1 border rounded">
                     <form action="/status" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $orcamento->id }}">
-                        <p>
-                            <strong>Status -</strong>
-                            <select name="status">
-                                <option value="{{ $orcamento->status }}" selected>{{ $orcamento->status }}</option>
+                        <div class="form-group">
+                            <label for="status"><strong>STATUS</strong></label>
+                            <select name="status" id="status" class="form-control">
                                 <option value="enviado">Enviado</option>
                                 <option value="aprovado">Aprovado</option>
                                 <option value="reprovado">Reprovado</option>
                             </select>
-                            <input type="submit" value="Definir">
-                        </p>
+                        </div>
+                        <input type="submit" class="btn btn-secondary btn-sm" value="Confirmar status">
                     </form>
-                    <p><strong>* Selecione o status, assim que obtiver o retorno do cliente sobre o orçamento.</strong></p>
-                @else
-                    <p><strong>Status - </strong> {{ $orcamento->status }}</p>
-                @endif
-                <!-- ################################################################################## -->
-
-                <!-- DATA INÍCIO -->
-                @if(($orcamento->status == "aprovado") and ($orcamento->inicio == NULL))
+                </div>
+                <!-- Fim Status -->
+            </div>
+    
+            <div class="row justify-content-center">
+                <!-- Data Inicio do Serviço -->
+                <div class="col-sm my-4 pb-1 border rounded">
                     <form action="/inicio" method="POST">
-                        <input type="hidden" name="id" value="{{ $orcamento->id }}">
                         @csrf
-                            <p>
-                                <strong>Início: </strong> <input type="date" name="inicio">
-                                <input type="submit" value="Confirmar">
-                            </p>
+                        <input type="hidden" name="id" value="{{ $orcamento->id }}">
+                        <div class="form-group">
+                            <label for="inicio"><strong>Data de início</strong></label>
+                            <input type="date" id="inicio" name="inicio" class="form-control">
+                        </div>
+                        <input type="submit" class="btn btn-secondary btn-sm" value ="Confirmar início">
                     </form>
-                    <p><strong>* Marque a data de início do serviço - combine a data com o cliente e tenha maior controle sobre serviço</strong></p>
-                @elseif($orcamento->inicio != NULL)
-                    <p><strong>Início:</strong> {{ $orcamento->inicio }} </p>
-                @endif
-                <!-- ################################################################################## -->
+                </div>
+                <!-- Fim Data Inicio do Serviço -->
+            </div>
 
-                <!-- ESTADO ATUAL -->
-                @if( ($orcamento->servico == "concluido") or ($orcamento->servico == "cancelado") )
-                
-                    <p><strong>Estado do serviço: </strong>{{ $orcamento->servico }}<p> 
-
-                @elseif( ($orcamento->status == "aprovado") and ($orcamento->inicio != NULL) )
+            <div class="row justify-content-center">
+                <!-- Serviço (Aprovado, Cancelado, Atrasado) -->
+                <div class="col-sm mb-2 pb-1 border rounded">
                     <form action="/servico" method="POST">
                         @csrf
                         <input type="hidden" name="id" value="{{ $orcamento->id }}">
-                        <p>
-                            <strong>Estado do serviço -</strong>
-                            <select name="servico">
-                                <option value="{{ $orcamento->servico }}" selected>{{ $orcamento->servico }}</option>
+                        <div class="form-group">
+                            <label for="servico"><strong>SERVIÇO</strong></label>
+                            <select name="servico" id="servico" class="form-control">
                                 <option value="concluido">Concluído</option>
                                 <option value="cancelado">Cancelado</option>
                             </select>
-                            <input type="submit" value="Salvar">
-                        </p>
+                        </div>
+                        <input type="submit" class="btn btn-secondary btn-sm" value="Confirmar estado">
                     </form>
-                    <p><strong>* Ao finalizar o serviço, selecione a opção concluído. Em caso de cancelamento, marque como cancelado.</strong></p>
-                @endif
-                <!-- ################################################################################## -->
+                </div>
+                <!-- Fim Serviço (Aprovado, Cancelado, Atrasado) -->
+            </div>
 
-                
-                <!-- OPÇÕES Enviar, Download, Editar, Excluir -->
-                <table>
-                    <tr>
-                        <td>
-                            <a class="btn btn-success btn-sm" href="/orcamento/enviar/{{ $orcamento->id }}"><strong>Enviar</strong></a>
-                        </td>
-                        <td>
-                            <strong><a class="btn btn-secondary btn-sm" href="/orcamento/download/{{ $orcamento->id }}">Download</a></strong>
-                        </td>
-                        <td>
-                            <strong> <a class="btn btn-warning btn-sm" href="{{ route('orcamentos.edit', ['orcamento' => $orcamento->id]) }}">Editar</a> </strong>
-                        </td>
-                        <td>
-                            <strong><a class="btn btn-danger btn-sm" onclick="return confirm('Deseja realmente excluir?')" href="{{ route('orcamentos.destroy', ['orcamento' => $orcamento->id]) }}">Excluir</a></strong> <br>
-                        </td>
-                    </tr>
-                </table>
-                <!-- ################################################################################## -->
-
-                <br><br>
-                <p>
-                    <strong> <a href="{{ url('/index') }}"> Home </a> </strong>&nbsp;&nbsp;&nbsp;
-                    <strong> <a href="/list_orc"> Voltar </a> </strong>
-                </p>
+        </div>
+    
     </div>
+    <!-- Fim Status & Inicio & Serviço -->
+
+    </div>
+
+</div>
+
+    
+    <!-- Ações - Editar - Enviar - Download -->
+    <div class="container w-50 mb-4">
+
+        <div class="row justify-content-center">
+
+            <div class="col-sm-3" style="font-size: 20px;">
+                <a href="{{ route('orcamentos.edit', ['orcamento' => $orcamento->id]) }}">
+                    <strong>Editar</strong> <i class="fas fa-edit"></i>
+                </a> 
+            </div>
+
+            <div class="col-sm-3" style="font-size: 20px;">
+                <a href="#">
+                    <strong>Enviar</strong> <i class="far fa-envelope"></i>
+                </a>
+            </div>
+
+            <div class="col-sm-3" style="font-size: 20px;">
+                <a href="#">
+                    <strong>Download</strong> <i class="fas fa-file-download"></i>
+                </a>
+            </div>
+
+            <div class="col-sm-3" style="font-size: 20px;">
+                <a href="#">
+                    <strong>Excluir</strong> <i class="fas fa-trash"></i>
+                </a>
+            </div>
+
+        </div>
+        
+    </div>
+    <!-- Fim Ações - Editar - Enviar - Download -->
 
 @endsection

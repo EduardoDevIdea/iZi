@@ -5,9 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>iZi</title>
 
+    <!-- CSS -->
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
 
-    <!-- Icones Font Awesome -->
+    <!-- JS -->
+    <script src="{{ asset('js/app.js') }}"></script>
+
+    <!-- Icones Font Awesome - Account Eduardo Gomes -->
     <script src="https://kit.fontawesome.com/829d5c5582.js" crossorigin="anonymous"></script>
 
 </head>
@@ -37,7 +41,7 @@
                     <a class="nav-link" href="#entrar">Entrar</a>
                 </li>
                 <li class="nav-item mx-3">
-                    <a class="nav-link" href="#">Cadastre-se</a>
+                    <a class="nav-link" href="{{ url('/register') }}">Cadastre-se</a>
                 </li>
             </ul>
         </div>
@@ -73,21 +77,34 @@
 
                         <div class="card-body pb-4">
 
-                            <form action="">
+                            <form method="POST" action="{{ route('login') }}">
+                                @csrf
 
                                 <div class="container w-75 pb-2">
                                     <div class="row">
                                         Login
                                     </div>
                                     <div class="row pb-3">
-                                        <input type="text" class="rounded w-100">
+                                        <input id="email" type="email" name="email" class="form-control rounded w-100 @error('email') is-invalid @enderror" value="{{ old('email') }}" autocomplete="email" placeholder="e-mail" autofocus required>
+                                        @error('email')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
                                     </div>
+
                                     <div class="row">
                                         Senha
                                     </div>
                                     <div class="row pb-3">
-                                        <input type="password" class="rounded w-100">
+                                        <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                                        @error('password')
+                                            <span class="invalid-feedback" role="alert">
+                                                <strong>{{ $message }}</strong>
+                                            </span>
+                                        @enderror
                                     </div>
+                                    
                                     <div class="row">
                                         <input type="submit" value="Entrar" class="btn btn-primary mx-auto w-50">
                                     </div>
@@ -99,12 +116,10 @@
 
                        <ul class="list-group">
                             <li class="list-group-item">
-                                <a href="#" class="btn btn-outline-secondary">
-                                    Cadastre-se
-                                </a>
+                                <a href="{{ url('/register') }}" class="btn btn-outline-secondary">Cadastre-se</a>
                             </li>
                        </ul>
-
+                       
                     </div>
                     <!-- FIM CARD -->
 
