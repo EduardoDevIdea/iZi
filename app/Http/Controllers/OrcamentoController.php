@@ -92,16 +92,27 @@ class OrcamentoController extends Controller
 
         $orcamento = Orcamento::where('user_id', $user_id)->get();
 
-        $hoje = strtotime("now");
+        $hoje = date('Y-m-d', strtotime("now"));
+        //dd($hoje);
 
         foreach ($orcamento as $orc){
+
+            /*
+            * Se o servico nao estiver concluido, nem cancelado, e a data de inicio nao for vazia
+            * Verifica se a data de entrega é maior que o dia atual, se for, registra o serviço como atrasado
+            */
             
             if( ( ($orc->servico != "concluido") or ($orc->servico != "cancelado") ) and (!empty($orc->inicio)) ) {
         
-                $entrega = date('Y-m-d', strtotime($orc->inicio. "+". $orc->prazo. "days"));
+                $dataEntrega = date('Y-m-d', strtotime($orc->inicio. "+". $orc->prazo. "days"));
+                //dd($dataEntrega);
+                //$entrega = strtotime($dataEntrega.);
+                //dd($dataEntrega);
+
         
-                if(date('Y-m-d') > $entrega){
-        
+                //if(date('Y-m-d') > $entrega){
+                if( $hoje > $dataEntrega){
+
                     Orcamento::find($orc->id)->update(['servico' => "atrasado"]);
         
                 }
@@ -181,10 +192,24 @@ class OrcamentoController extends Controller
      */
     public function update(Request $request, $id)
     {
+
+        $prazo = $request->prazo;
+        $tempo = $request->tempo;
+
+        if($tempo == "dia"){
+            $dia = 1;
+        }else if($tempo == "mes"){
+            $dia = 30;
+        }else if($tempo == "ano"){
+            $dia = 365;
+        }
+
+        $prazoCalculado = ($prazo * $dia);
+
         Orcamento::find($id)->update(['titulo' => $request->titulo,
                                        'cliente_id' => $request->cliente_id,
                                        'descricao' => $request->descricao,
-                                       'prazo' => $request->prazo,
+                                       'prazo' => $prazoCalculado,
                                        'valor' => $request->valor,
                                        'material' => $request->material,
                                        'descservice' => $request->descservice,
@@ -259,7 +284,7 @@ class OrcamentoController extends Controller
 
         });
 
-        return redirect()->back()->with('enviado', 'Orçamento enviado para o email de '. $orcamento['c_nome']);
+        return redirect()->back()->with('enviado', 'Orçamento enviado para o email do cliente '. $orcamento['c_nome']);
 
     }
 
@@ -273,6 +298,6 @@ class OrcamentoController extends Controller
     {
         Orcamento::find($id)->delete();
 
-        return redirect()->route('orcamentos.index');
+        return redirect()->route('lista_orcamentos');
     }
 }

@@ -19,12 +19,17 @@
 
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg py-3" style="background-color: #F2F2F2">
-        <a class="navbar-brand ml-4" href="#"> <b>iZi</b></a>
+        <a class="navbar-brand ml-4" href="{{ url('/index')}}">
+            <img src="{{ asset('imagens/izimarcatransp.png') }}" class="rounded float-left" width="150">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         
-        <div class="collapse navbar-collapse" id="navbarNav">
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav ml-auto mr-4">
                 <li class="nav-item dropdown">
-                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                    <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre style="color: black;">
                         Olá, {{ Auth::user()->nome }} <span class="caret"></span>
                     </a>
 

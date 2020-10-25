@@ -20,6 +20,10 @@
     <!-- NAVBAR  -->
     <nav class="navbar navbar-expand-lg py-3 navbar-light bg-light">
         <a class="navbar-brand ml-4" href="#"> <b>iZi</b></a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav">
+            <span class="navbar-toggler-icon"></span>
+        </button>
         
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav ml-5">
@@ -54,7 +58,7 @@
             <div class="row p-5">
 
                 <!--COLUNA 1-->
-                <div class="col-6 text-center">
+                <div class="col-sm-12 col-md-6 text-center">
                     <h1 class="display-1">iZi</h1>
                     <h3>Orçamento fácil</h3>
                     <p>
@@ -66,7 +70,7 @@
                 <!-- FIM COLUNA 1 -->
 
                 <!-- COLUNA 2 -->
-                <div class="col-6 text-center">
+                <div class="col-sm-12 col-md-6 text-center">
 
                     <!-- CARD -->
                     <div class="card text-dark">
@@ -137,7 +141,7 @@
 
             <div class="row">
 
-                <div class="col text-justify">
+                <div class="col-sm-12 col-md-6 col-lg-4 text-justify">
                     <h1 class="p-4 text-center"><i class="far fa-lightbulb" style="font-size: 40px; margin-right: 10px"></i><strong>Sobre</strong></h1>
                     <h4> <strong> iZi - Orçamento Fácil </strong> é uma ferramenta para elaborar orçamentos com praticidade. <br><br>
                         Ela surgiu para que você possa, em um único sistema, cadastrar clientes,
@@ -146,7 +150,7 @@
                     </h4>
                 </div>
 
-                <div class="col text-center">
+                <div class="col-sm-12 col-md-6 col-lg-4  text-center">
                     <div class="container">
                         <h1 class="p-4"><i class="fas fa-users" style="font-size: 50px; margin-right: 10px"></i><strong>Clientes</strong></h1>
                         <ul class="text-left">
@@ -159,7 +163,7 @@
                     </div>
                 </div>
 
-                <div class="col text-center">
+                <div class="col-sm-12 col-md-6 col-lg-4  text-center">
                     <div class="container">
                         <h1 class="p-4"><i class="far fa-file-alt" style="font-size: 50px; margin-right: 10px"></i><strong>Orçamentos</strong></h1>
                         <ul class="text-left">

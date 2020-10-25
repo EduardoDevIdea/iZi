@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <div class="container">
+    <div class="container py-4 border border-dark" style="width: 65%">
 
         <div class="form-row" style="margin-top: 35px; padding-bottom: 0rem;">
             <div class="form-group">
@@ -34,7 +34,7 @@
             </div>
             
             <div class="form-row">
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-8">
                     <label for="descricao">Descrição</label>
                     <textarea id="descricao" name="descricao" class="form-control" rows="8" cols="50" required placeholder="Descreva as atividades"></textarea>
                 </div>
@@ -50,7 +50,7 @@
                 </div>
             </div>
             <div class="form-row">
-                <div class="form-group col-sm-6">
+                <div class="form-group col-sm-8">
                     <label for="descservice">Serviços de terceiros (opcional)</label>
                     <textarea id="descservice" name="descservice" class="form-control" rows="8" cols="50" placeholder="Descreva serviços que precisa contratar"></textarea>
                 </div>
@@ -82,7 +82,9 @@
                     <small class="text-muted">Orçamento válido até esta data</small>
                 </div>
             </div>
-            <input type="submit" value="Salvar">
+            <div class="row justify-content-center">
+                <input type="submit" value="Salvar" class="btn btn-primary" style="width: 35%">
+            </div>
         </form>
 
     </div>

@@ -47,7 +47,7 @@ Route::resource('/orcamentos', 'OrcamentoController', ['except' => ['destroy']])
 Route::post('/orc_salvar_enviar', 'OrcamentoController@salvarEnviar');
 
 //listar orçamentos
-Route::get('/list_orc', 'OrcamentoController@listar');
+Route::get('/lista_orcamentos', 'OrcamentoController@listar')->name('lista_orcamentos');
 
 //filtrar orçamentos
 Route::post('/search_orc', 'OrcamentoController@filtro');
@@ -64,8 +64,8 @@ Route::post('/servico', 'OrcamentoController@servico');
 //download orçamento
 Route::get('orcamento/download/{id}', 'OrcamentoController@download');
 
-//enviar orçamento
-Route::get('orcamento/enviar/{id}', 'OrcamentoController@enviar');
+//envia orçamento para email do cliente
+Route::get('orcamento/enviar/{id}', 'OrcamentoController@enviar')->name('sendEmail');
 
 //deletar orçamento
 Route::get('/orcamentos/{orcamento}/delete', 'OrcamentoController@destroy')->name('orcamentos.destroy');

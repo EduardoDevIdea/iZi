@@ -27,7 +27,7 @@
                                         <a href="{{ route('orcamentos.create') }}">Novo Orçamento</a>
 				</p>
 				<p style="margin-bottom: 0rem;">
-                                        <a href="/list_orc">Listar Orçamentos</a>
+                                        <a href="/lista_orcamentos">Listar Orçamentos</a>
                                 </p>
                                 <p style="margin-bottom: 0rem;">
                                         <a href="{{ route('clientes.create') }}">Cadastrar Cliente</a>
